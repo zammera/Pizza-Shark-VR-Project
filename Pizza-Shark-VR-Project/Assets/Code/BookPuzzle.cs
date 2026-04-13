@@ -10,6 +10,17 @@ public class BookPuzzle : MonoBehaviour
     public Material newMaterialRef;
     public GameObject MISHA;
 
+    public AudioSource audioSource;
+    public AudioClip soundEffect;
+    bool sound_played = false;
+    public void PlaySound()
+        {
+            if (audioSource != null && soundEffect != null && sound_played == false)
+            {
+                audioSource.PlayOneShot(soundEffect);
+                sound_played = true;
+            }
+        }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,7 +55,8 @@ public class BookPuzzle : MonoBehaviour
         if (isSolved() == 1)
         {
             MISHA.GetComponent<Renderer>().material = newMaterialRef;
-            
+
+            PlaySound();
         }
     }
 }

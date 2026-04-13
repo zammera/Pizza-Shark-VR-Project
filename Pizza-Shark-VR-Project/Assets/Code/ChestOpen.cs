@@ -9,6 +9,18 @@ public class ChestOpen : MonoBehaviour
 
     private bool opened = false;
 
+    public AudioSource audioSource;
+    public AudioClip soundEffect;
+    bool sound_played = false;
+    public void PlaySound()
+        {
+            if (audioSource != null && soundEffect != null && sound_played == false)
+            {
+                audioSource.PlayOneShot(soundEffect);
+                sound_played = true;
+            }
+        }
+
     private bool KeyInHole()
     {
         XRSocketInteractor socket = keySlot.GetComponent<XRSocketInteractor>();
@@ -17,7 +29,7 @@ public class ChestOpen : MonoBehaviour
             return false;
 
         GameObject insertedObject = socket.firstInteractableSelected.transform.gameObject;
-
+        
         return insertedObject == key;
     }
 
@@ -26,7 +38,7 @@ public class ChestOpen : MonoBehaviour
         if (!opened && KeyInHole())
         {
             opened = true;
-
+            PlaySound();
             // Example: rotate the lid upward instead of teleporting it
             chestTop.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
 

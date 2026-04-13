@@ -19,6 +19,18 @@ public class PuzzleObject : MonoBehaviour {
 
     public Material newMaterialRef;
 
+    public AudioSource audioSource;
+    public AudioClip soundEffect;
+    bool sound_played = false;
+    public void PlaySound()
+        {
+            if (audioSource != null && soundEffect != null && sound_played == false)
+            {
+                audioSource.PlayOneShot(soundEffect);
+                sound_played = true;
+            }
+        }
+
     // Each object has 8 positions, rounded from in game angle (Range from 0 - 360 -> 45 deg per position):
         // 1 -> | ^ (337.5 - 22.49)
         // 2 -> / ^ (22.5  - 67.49)
@@ -102,11 +114,13 @@ public class PuzzleObject : MonoBehaviour {
             limits.max = 0f;
             hinge.limits = limits;
 
+            PlaySound();
+
             // //Turn Fire on
-            // Fire1.GetComponent<TurnFireOn>().TurnOn();
-            // Fire2.GetComponent<TurnFireOn>().TurnOn();
-            // Fire3.GetComponent<TurnFireOn>().TurnOn();
-            // Fire4.GetComponent<TurnFireOn>().TurnOn();
+            Fire1.GetComponent<TurnFireOn>().TurnOn();
+            Fire2.GetComponent<TurnFireOn>().TurnOn();
+            Fire3.GetComponent<TurnFireOn>().TurnOn();
+            Fire4.GetComponent<TurnFireOn>().TurnOn();
 
         }
     }

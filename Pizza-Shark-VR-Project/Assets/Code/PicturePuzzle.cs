@@ -8,6 +8,17 @@ public class PicturePuzzle : MonoBehaviour
     public GameObject[] gameArray;
     public GameObject[] slotArray;
 
+    public AudioSource audioSource;
+    public AudioClip soundEffect;
+    bool sound_played = false;
+    public void PlaySound()
+        {
+            if (audioSource != null && soundEffect != null && sound_played == false)
+            {
+                audioSource.PlayOneShot(soundEffect);
+                sound_played = true;
+            }
+        }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -37,6 +48,9 @@ public class PicturePuzzle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(isSolved());
+        if(isSolved() == 1)
+        {
+            PlaySound();
+        }
     }
 }
